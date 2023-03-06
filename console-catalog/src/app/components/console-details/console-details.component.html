@@ -1,0 +1,79 @@
+<div *ngIf="viewMode; else editable">
+    <div *ngIf="currentConsole.id">
+      <h4>Console</h4>
+      <div>
+        <label><strong>Name:</strong></label> {{ currentConsole.name }}
+      </div>
+      <div>
+        <label><strong>Description:</strong></label>
+        {{ currentConsole.description }}
+      </div>
+      <div>
+        <label><strong>Cost:</strong></label>
+        {{ currentConsole.cost }}
+      </div>
+  
+      <a
+        class="badge badge-warning"
+        routerLink="/console/{{ currentConsole.id }}"
+      >
+        Edit
+      </a>
+    </div>
+  
+    <div *ngIf="!currentConsole">
+      <br />
+      <p>Please click on a Console...</p>
+    </div>
+  </div>
+  
+  <ng-template #editable>
+    <div *ngIf="currentConsole.id" class="edit-form">
+      <h4>Console</h4>
+      <form>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="currentConsole.name"
+            name="name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            [(ngModel)]="currentConsole.description"
+            name="description"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label><strong>Cost:</strong></label>
+          {{ currentConsole.cost }}
+        </div>
+      </form>
+
+      <button class="badge badge-danger mr-2" (click)="deleteConsole()">
+        Delete
+      </button>
+  
+      <button
+        type="submit"
+        class="badge badge-success mb-2"
+        (click)="updateConsole()"
+      >
+        Update
+      </button>
+      <p>{{ message }}</p>
+    </div>
+  
+    <div *ngIf="!currentConsole.id">
+      <br />
+      <p>Cannot access this Console...</p>
+    </div>
+  </ng-template>
